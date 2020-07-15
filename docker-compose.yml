@@ -1,14 +1,26 @@
 version: "3"
 services:
   dynamodb-local:
-    image: cnadiminti/dynamodb-local
+    image: amazon/dynamodb-local
+    restart: always
     ports:
       - 8000:8000
+    command:
+      - -Djava.library.path=./DynamoDBLocal_lib
+      - -jar
+      - DynamoDBLocal.jar
+      - -dbPath
+      - /dynamodb_local_db
+      - -cors
+      - '*'
+      - -sharedDb
     volumes:
       - ./.database:/dynamodb_local_db
   
   dynamodb-admin:
-    image: manhvu2507/dynamodb-admin-docker
+    build:
+      context: .
+      dockerfile: "dynamodb-local-docker"
     environment:
       DYNAMO_ENDPOINT: http://dynamodb-local:8000
     ports:
