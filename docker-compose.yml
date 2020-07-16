@@ -20,7 +20,7 @@ services:
   dynamodb-admin:
     build:
       context: .
-      dockerfile: "dynamodb-local-docker"
+      dockerfile: dynamodb-admin-docker
     environment:
       DYNAMO_ENDPOINT: http://dynamodb-local:8000
     ports:
