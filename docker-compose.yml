@@ -18,6 +18,8 @@ services:
       - ./.database:/dynamodb_local_db
   
   dynamodb-admin:
+    depends_on:
+      - dynamodb-local
     build:
       context: .
       dockerfile: dynamodb-admin-docker
